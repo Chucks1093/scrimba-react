@@ -1,10 +1,10 @@
 import styled from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const StyledApp = styled.div`
      width: 30rem;
      margin: 4rem auto 0rem;
      box-shadow: 0 2rem 3rem rgba(0,0,0,0.4);
-     /* background-color: #181a1e; */
 
      * {
           box-sizing: border-box;
@@ -12,6 +12,13 @@ const StyledApp = styled.div`
 
      };
 
+     
+
 
 `
-export { StyledApp } 
+const StyledBody = createGlobalStyle`
+     body{
+          background-color: tomato;
+     }
+`
+export { StyledApp, StyledBody } 

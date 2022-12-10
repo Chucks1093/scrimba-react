@@ -22,8 +22,8 @@ const StyledMain = styled.div`
           content: "";
           display: inline-block;
           background-color: #00b7ff;
-          height: 1rem;
-          width: 1rem;
+          height: .7rem;
+          width: .7rem;
           border-radius: 50%;
           transform: translate(-100%, 20%);
 
@@ -31,7 +31,7 @@ const StyledMain = styled.div`
 
      & li {
           margin-bottom: 1rem;
-          font-size: 1.1rem;
+          font-size: .9rem;
           list-style-type: none;
      }
 
