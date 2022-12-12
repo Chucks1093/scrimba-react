@@ -9,6 +9,7 @@ const StyledMain = styled.div`
           color: white;
           padding: 2rem 0 5rem 1rem;   
           background: #1f1c1c;
+          border-radius: 0 0 .5rem .5rem;
      };
 
 

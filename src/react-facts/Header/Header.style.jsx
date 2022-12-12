@@ -7,6 +7,7 @@ const StyledHeader = styled.header`
      display: flex;
      align-items: center;
      justify-content: center;
+     border-radius: .5rem .5rem 0 0;
      
      & img {
           margin-right: .7rem;
