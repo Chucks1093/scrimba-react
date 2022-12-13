@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 
+
+
 const StyledApp = styled.div`
+     overflow-x: hidden;
      & h2 {
           text-align: center;
      }
@@ -77,14 +80,23 @@ const Comment = styled.p`
      margin: 3rem 0 0 0;
      color: #edeffd;
      font-size: .75rem;
+     position: absolute;
+     bottom: 2%;
+     width: 100%;
      & span {
           color: #ff4e4e;
      }
 `
 const BidContainer = styled.div`
      margin-top: 3rem;
-     padding: 0 0 0 4rem;
-     /* transform: translateX(10%); */
+     overflow-x: hidden;
+     overflow-y: hidden;
+     background: transparent;
+     position: relative;
+     padding: 0 0 0 3rem;
+     display: flex;                
+     height: 27rem;
+
 `
 
 const styledSearch = {

@@ -1,10 +1,10 @@
 import { ReportCover, StyledReport, Stats } from "./Reports.style";
 import BidReport from "../BidReport/BidReport";
 
-function Reports(){
+function Reports(props){
      return(
           <div>
-               <StyledReport>
+               <StyledReport show={props.isModalActive.report}>
                     <div>
                          <h3>Reports</h3>
                          <p>30 0ctober, 2020</p>
@@ -20,13 +20,15 @@ function Reports(){
                               <BidReport />
                               <BidReport />
                               <BidReport />
-
                          </div>
                     </Stats>
                </StyledReport>
-               <ReportCover />
+               <ReportCover 
+                    onClick={()=>props.setModalState({report: false, bid: false})}
+                    show={props.isModalActive.report}
+               />
           </div>
      )
-}
+};
 
 export default Reports;

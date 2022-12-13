@@ -7,13 +7,23 @@ import {
 
 } from "./Modal.style";
 import { BsBookmarkCheckFill } from "react-icons/bs";
+import { motion } from "framer-motion";
+function Modal(props) {
 
-function Modal() {
+     const showNft = () =>{
+         if (props.isModalActive.bid === true) {
+               props.setModalState({report: false, bid: false})
+         }else{
+               props.setModalState({report: false, bid: true})
+         }
+          console.log(props.isModalActive)
+
+     } 
      return (
           <div>
-               <ModalCover />
-               <StyledModal>
-                    <img src="/nft-1.jpg" alt="" />
+               <ModalCover show={props.isModalActive.bid} onClick={showNft} />
+               <StyledModal show={props.isModalActive.bid}>
+                    <img src="/ft-1.jpg" alt="" />
                     <UserInfo>
                          <img src="/user.jpg" alt="" />
                          <p>Ryan Begson</p>

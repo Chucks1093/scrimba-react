@@ -3,11 +3,12 @@ import styled from "styled-components";
 
 const StyledBid = styled.div`
      width: 21rem;
-     position: relative;
+     position: absolute;
+     transform: translateX(${(props)=>(props.x * 100)+ props.x*10 + "%"}) ;
      border-radius: .6rem;
      background: #202528;
-     color: #edeffd;
-     padding: 1rem;
+     color: #edeffd; 
+     padding: ${(props)=>props.x ==1 ? "1rem" : "1rem"};
      box-shadow:  0 2rem 3rem rgba(0,0,0,0.4);
 
      & > img {
@@ -93,17 +94,27 @@ const BiddingState = styled.div`
      
      & button{
           height: 2rem;
-          display: block;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           width: 9rem;
           border-radius: .3rem;
           background: #ffffff;
           font-weight: bold;
-          box-shadow:  0 1rem 1rem rgba(0,0,0,0.4);
+          box-shadow:  0 .7rem 1rem rgba(0,0,0,0.4);
           border: 1px solid white;
+          cursor: pointer;
      }
      
      
 `;
+
+const bidBtnSymbol = {
+    display: "block",
+    marginLeft: ".5rem",
+    color: "#2b2b2b"
+
+}
 const clock = {
      fontWeight: "bold",
      fontSize: "1rem"
@@ -119,5 +130,6 @@ export {
      StyledBid, 
      BiddingState, 
      clock,
-     lastBid
+     lastBid,
+     bidBtnSymbol
 }

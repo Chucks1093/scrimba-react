@@ -8,6 +8,7 @@ const ModalCover = styled.div`
      left: 0%;
      background-color: #1d221d8f;
      z-index: 1;
+     display: ${(props)=>props.show ? "block" : "none"};
 `
 
 const StyledModal = styled.div`
@@ -22,13 +23,16 @@ const StyledModal = styled.div`
      position: fixed;
      border-radius: .6rem;
      max-width: 29rem;
+     padding: 0rem;
      box-shadow:  0 2rem 3rem rgba(0,0,0,0.4);
+     display: ${(props)=>props.show ? "block" : "none"};
 
      & > img {
           border-radius: .6rem;
           width: 100%;
           height: 28%;
           object-fit: cover;
+          object-position: center 15%;
      }
      
      
@@ -71,7 +75,7 @@ const BiddingInfo = styled.div`
      display: flex;
      justify-content: space-between;
      margin-top: 4.3rem;
-     padding: 0 .8rem;
+     padding: 0 1.6rem;
 
      & div:nth-child(1) p:nth-child(1) {
           color: gray;
@@ -97,7 +101,7 @@ const BiddingForm = styled.form`
      & div:nth-child(1) {
           display: flex;
           justify-content: space-between;
-          padding: 0 .8rem;
+          padding: 0 1.6rem;
 
      }
 

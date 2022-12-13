@@ -8,6 +8,8 @@ const ReportCover = styled.div`
      left: 0%;
      background-color: #1d221d8f;
      z-index: 1;
+     display: ${(props)=>props.show ? "block" : "none"};
+     
 `
 
 const StyledReport = styled.div`
@@ -23,6 +25,8 @@ const StyledReport = styled.div`
      padding: 1.7rem 1rem 1rem 1rem;
      border-radius: .7rem;
      max-width: 37rem;
+     display: ${(props)=>props.show ? "block" : "none"};
+
      
 
      & > div:nth-child(1) {

@@ -6,7 +6,7 @@ function BidReport() {
      return (
           <StyleBidReport>
                <div>
-                    <img src="/nft-1.jpg" alt="" width="19rem" />
+                    <img src="/ft-1.jpg" alt="" width="19rem" />
                     <div>
                          <h4>Fakurian of Space</h4>
                          <p>Ryan Bergson</p>
