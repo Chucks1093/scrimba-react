@@ -17,14 +17,21 @@ import { motion } from "framer-motion";
 import data from "./data";
 
 function App(){
+     const [balance, setBalance] = useState(3.17495);
      const [showModal, setShowModal] = useState({report:false, bid: false});
-   
+     const [modalID, setModalID] = useState(0);
+     const generateLastBid =() => {
+          let lastBid = (Math.random()* 1.1).toFixed(2);
+          return lastBid;
+     }
+
 
      return (
           <StyledApp>
                <Modal 
                     isModalActive={showModal}
                     setModalState={setShowModal}
+                    modalID={modalID}
                
                />
                <Reports
@@ -38,7 +45,7 @@ function App(){
                          <p>Balance</p>
                          <Account>
                               <img src="/eth.svg" alt="" />
-                              <p>23,7600</p>
+                              <p>{balance}</p>
                          </Account>
                     </div>
                     <img src="/user.jpg" alt="user" />
@@ -46,13 +53,16 @@ function App(){
                <BidContainer as={motion.div} animate={{x: 0}} initial={{x:800}}>
                     {data.map((item,i) =>(
                          <Bid
+                              key={i} 
                               x={i}
-                              setModalState={setShowModal}  key={i} 
+                              setModalState={setShowModal}  
                               item={item}
+                              setModalID={setModalID}
+                              lastBid={generateLastBid()}
                          />
                     ))}
                </BidContainer>
-               <Comment>Made with <span>❤</span> by Anioke Sebastian.
+               <Comment onClick={generateLastBid}>Made with <span>❤</span> by Anioke Sebastian.
                </Comment>
           </StyledApp>
      )

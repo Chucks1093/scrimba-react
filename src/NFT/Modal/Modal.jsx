@@ -8,7 +8,10 @@ import {
 } from "./Modal.style";
 import { BsBookmarkCheckFill } from "react-icons/bs";
 import { motion } from "framer-motion";
+import data from "../App/data";
+
 function Modal(props) {
+     const {time} = data[props.modalID];
 
      const showNft = () =>{
          if (props.isModalActive.bid === true) {
@@ -16,33 +19,31 @@ function Modal(props) {
          }else{
                props.setModalState({report: false, bid: true})
          }
-          console.log(props.isModalActive)
-
-     } 
+     }; 
      return (
           <div>
                <ModalCover show={props.isModalActive.bid} onClick={showNft} />
                <StyledModal show={props.isModalActive.bid}>
-                    <img src="/ft-1.jpg" alt="" />
+                    <img src={`/nfts/nft-${props.modalID+1}.jpg`} alt="" />
                     <UserInfo>
-                         <img src="/user.jpg" alt="" />
-                         <p>Ryan Begson</p>
+                         <img src={`creators/creator-${props.modalID+1}.jpg`} alt="" />
+                         <p>{`${data[props.modalID].creator}`}</p>
                          <p>Creator</p>
                     </UserInfo>
                     <BiddingInfo>
                          <div>
                               <p>Last bid</p>
-                              <p>0.96 ETH</p>
+                              <p>{props.lastBid} ETH</p>
                          </div>
                          <div>
                               <p>Auction ending in</p>
-                              <p>04 : 45 : 32</p>
+                              <p>{time.hour} : {time.minute} : {time.seconds}</p>
                          </div>
                     </BiddingInfo>
                     <BiddingForm>
                          <div>
                               <h4>Your Bid</h4>
-                              <h4>Fakurian of Space</h4>    
+                              <h4>{`${data[props.modalID].nft}`}</h4>    
                          </div>
                          <div>
                               <span>ETH</span>

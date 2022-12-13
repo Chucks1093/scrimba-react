@@ -3,8 +3,8 @@ export default [
           nft: "Crypto Raptors",
           creator: "Gbemisola Akintade",
           time: {
-               hour: 2,
-               minute: 6,
+               hour: 0,
+               minute: 0,
                seconds: 7
           },
           

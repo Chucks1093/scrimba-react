@@ -89,7 +89,7 @@ const Comment = styled.p`
 `
 const BidContainer = styled.div`
      margin-top: 3rem;
-     overflow-x: hidden;
+     overflow-x: scroll;
      overflow-y: hidden;
      background: transparent;
      position: relative;

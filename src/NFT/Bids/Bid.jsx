@@ -4,16 +4,31 @@ import { clock,lastBid,bidBtnSymbol } from "./Bid.style";
 import {SiBetfair} from "react-icons/si";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { motion } from "framer-motion";
+import data from "../App/data";
 
 function Bid(props){
-     
-     if (props.item.time.hour === 0) {
-
+     const { time } = props.item;
+     console.log(props.item)
+     let timeValue= Number;
+     // Thinking of using useEffect Hook.
+     if (time.hour === 0  && time.minute !== 0 ) {
+          timeValue =`${time.minute}m`
+     } else if (time.hour===0 && time.minute === 0) {
+          timeValue = `${time.seconds}s`
+     } else {
+          timeValue = `${time.hour}hr`
      }
+
+
+     const showModal = () => {
+          props.setModalState({report: false, bid: true});
+          props.setModalID(props.x)
+     }
+     
      return (
           <StyledBid x={props.x}>
                <motion.img  src={`nfts/nft-${props.x+1}.jpg`} alt="nft" />
-               <div> <AiOutlineClockCircle style={clock}/> <span>12h left</span> </div>
+               <div> <AiOutlineClockCircle style={clock}/> <span>{timeValue} left</span> </div>
                <div>
                     <h3>{props.item.nft}</h3>
                     <img src={`creators/creator-${props.x+1}.jpg`} alt="user" />
@@ -25,10 +40,10 @@ function Bid(props){
                          </div>
                          <div>
                               <p>Last Bid</p>
-                              <p>0.96 ETH</p>
+                              <p>{props.lastBid} ETH</p>
                          </div>
                     </div>
-                    <button onClick={()=>props.setModalState({report: false, bid: true})}> <span>Place a bid </span><SiBetfair style={bidBtnSymbol} /></button>
+                    <button onClick={showModal}><span>Place a bid </span><SiBetfair style={bidBtnSymbol} /></button>
                </BiddingState>
           </StyledBid>
      )
