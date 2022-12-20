@@ -7,24 +7,87 @@ import {
      Comment,
      Account
 } from "./App.style";
-
 import Modal from "../Modal/Modal";
 import { IoIosStats } from "react-icons/io";
 import Bid from "../Bids/Bid";
 import Reports from "../Reports/Reports";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import data from "./data";
+import reduceTIme from "./reduceTime";
+import resetTime from "./resetTime";
+import generateLastBid from "./generateLastBid";
+
 
 function App(){
-     const [balance, setBalance] = useState(3.17495);
-     const [showModal, setShowModal] = useState({report:false, bid: false});
+     const [nftData, setnftData] = useState(data);
+     const [balance, setBalance] = useState(5.17495);
+     const [showModal, setShowModal] = useState
+     ({report:false, bid: false});
      const [modalID, setModalID] = useState(0);
-     const generateLastBid =() => {
-          let lastBid = (Math.random()* 1.1).toFixed(2);
-          return lastBid;
-     }
 
+
+     useEffect(()=>{
+          nftData.map((item, i)=> {
+               if (item.time.hour===0 && item.time.minute ===0 && item.time.seconds ===2) {
+                    resetTime(data, i).then((value) => {
+                         setnftData((allItem)=>{
+                              let restoredTime = allItem[i];
+                              restoredTime.time = value;
+
+                              return allItem;
+                         })
+                    })
+               }
+          })
+     }, [nftData])
+
+     
+     useEffect(()=>{
+          setInterval(()=>{
+               setnftData((value)=>{
+                    return value.map((item, i)=>{
+                         if (item.time.hour===0 && item.time.minute ===0 && item.time.seconds ===0 ) {
+                              return item;
+                    }else {
+                         const newTime = reduceTIme(item.time);
+                         return {
+                              ...item,
+                              time: {...newTime}
+                         };   
+                    }
+              }) 
+          })
+        }, 1000)  
+     }, [])
+
+     useEffect(()=>{
+          setnftData((value)=> {
+               return value.map((item)=>{
+                    const lastBid = generateLastBid();
+                    return {
+                         ...item,
+                         lastBid: lastBid
+
+                    }
+               })
+          })
+          setInterval(()=>{
+               setnftData((value)=> {
+                    return value.map((item)=>{
+                         const prevLastBid = Number(item.lastBid);
+                         const lastBid = Number(generateLastBid());
+                         const newBid = (prevLastBid + (lastBid/1.1)).toFixed(2)
+                         
+                         return {
+                              ...item,
+                              lastBid: newBid
+     
+                         }
+                    })
+               })
+          }, 120000)
+     }, [])
 
      return (
           <StyledApp>
@@ -32,11 +95,13 @@ function App(){
                     isModalActive={showModal}
                     setModalState={setShowModal}
                     modalID={modalID}
-               
+                    nftData={nftData}
+
                />
                <Reports
                     isModalActive={showModal}
                     setModalState={setShowModal} 
+                    nftData={nftData}
                />
                <StyledBody />
                <TopInfo>
@@ -51,18 +116,17 @@ function App(){
                     <img src="/user.jpg" alt="user" />
                </TopInfo>
                <BidContainer as={motion.div} animate={{x: 0}} initial={{x:800}}>
-                    {data.map((item,i) =>(
+                    {nftData.map((item,i)=>(
                          <Bid
                               key={i} 
                               x={i}
                               setModalState={setShowModal}  
                               item={item}
                               setModalID={setModalID}
-                              lastBid={generateLastBid()}
                          />
                     ))}
                </BidContainer>
-               <Comment onClick={generateLastBid}>Made with <span>❤</span> by Anioke Sebastian.
+               <Comment>Made with <span>❤</span> by Anioke Sebastian.
                </Comment>
           </StyledApp>
      )

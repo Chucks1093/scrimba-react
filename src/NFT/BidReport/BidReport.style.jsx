@@ -38,6 +38,11 @@ const StyleBidReport = styled.div`
 
      }
 
+     & div:nth-child(3) {
+          color: #ff7782;
+          /* color: #41f1b6; */
+     }
+
 `
 
 const upArrow = {

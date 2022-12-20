@@ -22,13 +22,14 @@ const StyledReport = styled.div`
      left: 50%;
      top: 50%;
      transform: translate(-50%, -50%);
-     padding: 1.7rem 1rem 1rem 1rem;
+     padding: 1.7rem 1rem 1rem 1.4rem;
      border-radius: .7rem;
      max-width: 37rem;
      display: ${(props)=>props.show ? "block" : "none"};
-
+     overflow-y: scroll;
      
-
+     
+     
      & > div:nth-child(1) {
           display: flex;
           justify-content: space-between;
@@ -40,9 +41,6 @@ const Stats = styled.div`
           grid-template-columns: 2.5fr repeat(3, 1fr);
           gap: .7rem;
           margin: 2rem 0  1rem 0;
-
-
-
      }
 `
 export {

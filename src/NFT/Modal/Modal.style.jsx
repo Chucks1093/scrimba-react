@@ -33,6 +33,7 @@ const StyledModal = styled.div`
           height: 28%;
           object-fit: cover;
           object-position: center 15%;
+          transition: 1s all ease;
      }
      
      

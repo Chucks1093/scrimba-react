@@ -1,19 +1,20 @@
 import { StyleBidReport } from "./BidReport.style";
 import { IoMdArrowDropdownCircle, IoMdArrowDropupCircle } from "react-icons/io";
 import { upArrow, downArrow } from "./BidReport.style";
+import data from "../App/data";
 
-function BidReport() {
+function BidReport(props) {
      return (
           <StyleBidReport>
                <div>
-                    <img src="/ft-1.jpg" alt="" width="19rem" />
+                    <img src={`/nfts/nft-${props.id+1}.jpg`} alt="" width="19rem" />
                     <div>
-                         <h4>Fakurian of Space</h4>
-                         <p>Ryan Bergson</p>
+                         <h4>{data[props.id].nft}</h4>
+                         <p>{data[props.id].creator}</p>
                     </div>
                </div>
-               <div>0.96 ETH</div>
-               <div>12hr</div>
+               <div>{props.cost} ETH</div>
+               <div>{props.sold===true ? "Sold": "Pending..."}</div>
                <div>
                     <IoMdArrowDropdownCircle style={downArrow} />
                     <IoMdArrowDropupCircle style={upArrow} />
