@@ -13,9 +13,9 @@ export default [
           nft: "Futuristic Realism",
           creator: "Aminu Abiodun",
           time: {
-               hour: 1,
-               minute: 33,
-               seconds: 45
+               hour: 0,
+               minute: 0,
+               seconds: 20
           },
           
      },

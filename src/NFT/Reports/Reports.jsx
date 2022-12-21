@@ -12,7 +12,6 @@ function Reports(props){
      };
 
 
-     const [reportItems, setReportItems] = useState(getLocalStorage);
 
      // useEffect(()=>{
      //      console.log("ran me")
@@ -32,25 +31,25 @@ function Reports(props){
      //      })
      // },[props.isModalActive.report === false ? true : false])
 
-     useEffect(()=>{
-          setReportItems((value)=>{
-               props.nftData.map((item,i)=>{
-                    const { hour, minute, seconds } = item.time;
-                    if (hour==0 && minute==0 && seconds==0) {
-                         console.log("rAN timeout")
-                         return value.map((reportItem) => {
-                              if (reportItem.id === i) {
-                                   reportItem.sold = true
-                              }
-                              console.log(reportItem)
-                         })
-                    }
-               })
-          })
-     },[props.isModalActive.report === false ? true : false])
+     // useEffect(()=>{
+     //      setReportItems((value)=>{
+     //           props.nftData.map((item,i)=>{
+     //                const { hour, minute, seconds } = item.time;
+     //                if (hour==0 && minute==0 && seconds==0) {
+     //                     console.log("rAN timeout")
+     //                     return value.map((reportItem) => {
+     //                          if (reportItem.id === i) {
+     //                               reportItem.sold = true
+     //                          }
+     //                          console.log(reportItem)
+     //                     })
+     //                }
+     //           })
+     //      })
+     // },[props.isModalActive.report === false ? true : false])
 
      useEffect(()=>{
-          setReportItems(getLocalStorage)
+          props.setReportItems(getLocalStorage)
 
      }, [props.isModalActive.report === false ? true : false])
      return(
@@ -68,14 +67,13 @@ function Reports(props){
                               <p>Stake</p>
                          </div>
                          <div>
-                              {reportItems.map((item, i) =>(
+                              {props.reportItems.map((item, i) =>(
                                    <BidReport 
                                         key={i}
                                         id={item.id}
                                         cost={item.amount}
                                         sold={item.sold}
-                                        
-                                   
+                                        purchased={item.purchased}
                                    />
                               ))}
                          </div>

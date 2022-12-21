@@ -49,14 +49,12 @@ const upArrow = {
      color: "green",
      fontSize: "1.7rem",
      borderRadius: "50%",
-     display: "inline-block",
      backgroundColor: "white"
 };
 
 const downArrow = {
      ...upArrow,
      color: "red",
-     display: "none"
 
 }
 

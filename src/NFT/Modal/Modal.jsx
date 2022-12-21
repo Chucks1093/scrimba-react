@@ -35,7 +35,7 @@ function Modal(props) {
           } else if (bidValue.value > lastBid) {
                props.nftData[props.modalID].lastBid = bidValue.value;
                let nftItems = getLocalStorage();
-               nftItems.push({id : props.modalID, amount: bidValue.value, sold: false});
+               nftItems.push({id : props.modalID, amount: bidValue.value, sold: false, purchased: true});
                console.log(nftItems)
                localStorage.setItem("nft", JSON.stringify(nftItems));
                bidValue.type = "text";

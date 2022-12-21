@@ -16,8 +16,8 @@ function BidReport(props) {
                <div>{props.cost} ETH</div>
                <div>{props.sold===true ? "Sold": "Pending..."}</div>
                <div>
-                    <IoMdArrowDropdownCircle style={downArrow} />
-                    <IoMdArrowDropupCircle style={upArrow} />
+                    <IoMdArrowDropdownCircle style={{...downArrow,display: props.purchased ? "none" : "inline-block" }} />
+                    <IoMdArrowDropupCircle  style={{...upArrow,display: props.purchased ? "inline-block" : "none" }} />
                </div>
           </StyleBidReport>
      )

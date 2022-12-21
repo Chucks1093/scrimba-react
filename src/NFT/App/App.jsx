@@ -17,6 +17,7 @@ import data from "./data";
 import reduceTIme from "./reduceTime";
 import resetTime from "./resetTime";
 import generateLastBid from "./generateLastBid";
+import getLocalStorage from "../Reports/getLocalStorage";
 
 
 function App(){
@@ -25,6 +26,8 @@ function App(){
      const [showModal, setShowModal] = useState
      ({report:false, bid: false});
      const [modalID, setModalID] = useState(0);
+     const [reportItems, setReportItems] = useState(getLocalStorage);
+
 
 
      useEffect(()=>{
@@ -41,6 +44,27 @@ function App(){
                }
           })
      }, [nftData])
+
+     // Have to reduce nested if statement 
+     useEffect(()=>{
+          nftData.map((item, i)=> {
+               if (item.time.hour===0 && item.time.minute ===0 && item.time.seconds ===1) {
+                    const storedNfts = getLocalStorage();
+                    const newStoredNfts = storedNfts.map((value)=>{
+                         if (!value.sold){
+                              if (value.id === i) {
+                                   value.sold = true;
+                                   value.amount > item.lastBid ? value.purchased = true : value.purchased = false;
+                              }
+                         }
+                         return value;
+                    })
+                    localStorage.setItem("nft", JSON.stringify(newStoredNfts))
+                    setReportItems(newStoredNfts)
+                    // console.log(newStoredNfts)
+               }
+          })
+     },[nftData])
 
      
      useEffect(()=>{
@@ -86,7 +110,7 @@ function App(){
                          }
                     })
                })
-          }, 120000)
+          }, 7000)
      }, [])
 
      return (
@@ -101,7 +125,8 @@ function App(){
                <Reports
                     isModalActive={showModal}
                     setModalState={setShowModal} 
-                    nftData={nftData}
+                    reportItems={reportItems}
+                    setReportItems={setReportItems}
                />
                <StyledBody />
                <TopInfo>
