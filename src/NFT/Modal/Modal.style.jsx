@@ -23,6 +23,7 @@ const StyledModal = styled.div`
      position: fixed;
      border-radius: .6rem;
      max-width: 29rem;
+     min-width: 21rem;
      padding: 0rem;
      box-shadow:  0 2rem 3rem rgba(0,0,0,0.4);
      display: ${(props)=>props.show ? "block" : "none"};

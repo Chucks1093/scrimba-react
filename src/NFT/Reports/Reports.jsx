@@ -11,43 +11,6 @@ function Reports(props){
           day: new Date().getDate()
      };
 
-
-
-     // useEffect(()=>{
-     //      console.log("ran me")
-     //      setReportItems((value)=>{
-     //           return value.map((report, index)=>{
-     //                props.nftData.findIndex((x, i) => {
-     //                     if (i === report.id) {
-     //                          console.log(report.id)
-     //                          return {
-     //                               ...report,
-     //                               sold: !sold
-     //                          }
-     //                     }
-     //                     console.log(report)
-     //                })
-     //           })
-     //      })
-     // },[props.isModalActive.report === false ? true : false])
-
-     // useEffect(()=>{
-     //      setReportItems((value)=>{
-     //           props.nftData.map((item,i)=>{
-     //                const { hour, minute, seconds } = item.time;
-     //                if (hour==0 && minute==0 && seconds==0) {
-     //                     console.log("rAN timeout")
-     //                     return value.map((reportItem) => {
-     //                          if (reportItem.id === i) {
-     //                               reportItem.sold = true
-     //                          }
-     //                          console.log(reportItem)
-     //                     })
-     //                }
-     //           })
-     //      })
-     // },[props.isModalActive.report === false ? true : false])
-
      useEffect(()=>{
           props.setReportItems(getLocalStorage)
 

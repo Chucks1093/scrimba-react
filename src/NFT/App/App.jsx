@@ -27,6 +27,21 @@ function App(){
      ({report:false, bid: false});
      const [modalID, setModalID] = useState(0);
      const [reportItems, setReportItems] = useState(getLocalStorage);
+     const [position, setPosition] = useState(0);
+
+
+     const movePosition=(e)=>{
+          setPosition((value)=>{
+               if (e.keyCode == "37"){
+                    return Number(value + 1);
+               }else if (e.keyCode == "39"){
+                    return Number(value - 1);
+
+               }else {
+                    return value;
+               }
+          })
+     }
 
 
 
@@ -37,7 +52,6 @@ function App(){
                          setnftData((allItem)=>{
                               let restoredTime = allItem[i];
                               restoredTime.time = value;
-
                               return allItem;
                          })
                     })
@@ -45,7 +59,7 @@ function App(){
           })
      }, [nftData])
 
-     // Have to reduce nested if statement 
+     // Have to reduce nested if statement using the guard claues technique
      useEffect(()=>{
           nftData.map((item, i)=> {
                if (item.time.hour===0 && item.time.minute ===0 && item.time.seconds ===1) {
@@ -54,14 +68,13 @@ function App(){
                          if (!value.sold){
                               if (value.id === i) {
                                    value.sold = true;
-                                   value.amount > item.lastBid ? value.purchased = true : value.purchased = false;
+                                   value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
                               }
                          }
                          return value;
                     })
                     localStorage.setItem("nft", JSON.stringify(newStoredNfts))
                     setReportItems(newStoredNfts)
-                    // console.log(newStoredNfts)
                }
           })
      },[nftData])
@@ -101,11 +114,11 @@ function App(){
                     return value.map((item)=>{
                          const prevLastBid = Number(item.lastBid);
                          const lastBid = Number(generateLastBid());
-                         const newBid = (prevLastBid + (lastBid/1.1)).toFixed(2)
+                         const newBid = (balance * (lastBid/2.5)).toFixed(2)
                          
                          return {
                               ...item,
-                              lastBid: newBid
+                              lastBid: newBid <= prevLastBid ? prevLastBid : newBid
      
                          }
                     })
@@ -120,6 +133,8 @@ function App(){
                     setModalState={setShowModal}
                     modalID={modalID}
                     nftData={nftData}
+                    setBalance={setBalance}
+                    balance={balance}
 
                />
                <Reports
@@ -140,14 +155,16 @@ function App(){
                     </div>
                     <img src="/user.jpg" alt="user" />
                </TopInfo>
-               <BidContainer as={motion.div} animate={{x: 0}} initial={{x:800}}>
+               <BidContainer as={motion.div} onKeyDown={movePosition} animate={{x: 0}} initial={{x:800}}>
                     {nftData.map((item,i)=>(
                          <Bid
                               key={i} 
-                              x={i}
+                              id={i}
+                              index={{id: i,position: i + position}}
                               setModalState={setShowModal}  
                               item={item}
                               setModalID={setModalID}
+                              
                          />
                     ))}
                </BidContainer>

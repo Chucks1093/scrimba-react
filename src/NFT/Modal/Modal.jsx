@@ -26,13 +26,22 @@ function Modal(props) {
           if (bidValue.value < lastBid) {
                bidValue.type = "text";
                bidValue.value = "This is too small";
-               console.log(bidValue)
                setTimeout(()=>{
                     bidValue.type = "number";
                     bidValue.value = ""
-               }, 3000);
+               }, 1300);
                
-          } else if (bidValue.value > lastBid) {
+          } else if (props.balance < bidValue.value) {
+               bidValue.type = "text";
+               bidValue.value = "Not enough balance";
+               setTimeout(()=>{
+                    bidValue.type = "number";
+                    bidValue.value = ""
+               }, 1300);
+          }
+          else if (props.balance > bidValue.value && bidValue.value > lastBid) {
+               const newBalnce = props.balance -  bidValue.value;
+               props.setBalance(newBalnce.toFixed(5))
                props.nftData[props.modalID].lastBid = bidValue.value;
                let nftItems = getLocalStorage();
                nftItems.push({id : props.modalID, amount: bidValue.value, sold: false, purchased: true});

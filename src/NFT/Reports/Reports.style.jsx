@@ -23,6 +23,7 @@ const StyledReport = styled.div`
      top: 50%;
      transform: translate(-50%, -50%);
      padding: 1.7rem 1rem 1rem 1.4rem;
+     min-width: 22rem;
      border-radius: .7rem;
      max-width: 37rem;
      display: ${(props)=>props.show ? "block" : "none"};

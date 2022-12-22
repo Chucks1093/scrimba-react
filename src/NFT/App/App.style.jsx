@@ -88,14 +88,15 @@ const Comment = styled.p`
      }
 `
 const BidContainer = styled.div`
-     margin-top: 3rem;
-     overflow-x: scroll;
-     overflow-y: hidden;
+     padding: 6rem 0 0 0;
+     /* border: 1px solid red; */
+     /* overflow-x: scroll; */
+     /* overflow-y: hidden; */
      background: transparent;
      position: relative;
      padding: 0 0 0 3rem;
      display: flex;                
-     height: 27rem;
+     height: calc(45vh + 20rem);
 
 `
 
