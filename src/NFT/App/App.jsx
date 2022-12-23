@@ -37,6 +37,7 @@ function App(){
                }else if (e.keyCode == "39"){
                     return Number(value - 1);
 
+
                }else {
                     return value;
                }
@@ -153,21 +154,21 @@ function App(){
                               <p>{balance}</p>
                          </Account>
                     </div>
-                    <img src="/user.jpg" alt="user" />
+                    <motion.img src="/user.jpg" alt="user"  />
                </TopInfo>
-               <BidContainer as={motion.div} onKeyDown={movePosition} animate={{x: 0}} initial={{x:800}}>
+               <BidContainer as={motion.div} onKeyDown={movePosition} animate={{x: 0, opacity: 1}} initial={{x:500, opacity: 0}} transition={{delay: 3}}>
                     {nftData.map((item,i)=>(
                          <Bid
                               key={i} 
                               id={i}
-                              index={{id: i,position: i + position}}
+                              index={i + position}
                               setModalState={setShowModal}  
                               item={item}
-                              setModalID={setModalID}
-                              
+                              setModalID={setModalID}  
                          />
-                    ))}
-               </BidContainer>
+                         ))}
+               </BidContainer>     
+                         <motion.img src="/loader.svg" alt="" initial={{opaciy: 1}} transition={{delay: 2.5}} animate={{opacity: 0}} />
                <Comment>Made with <span>❤</span> by Anioke Sebastian.
                </Comment>
           </StyledApp>

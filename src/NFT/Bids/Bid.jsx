@@ -12,8 +12,12 @@ import { useState } from "react";
 
 function Bid(props){
      const { time } = props.item;
-     // const { position } = props.position;
-     const [position, setPosition] = useState(props.index);
+     let { index } = props;
+
+     if (index < -5) {
+          index = data.length - Math.abs(index);
+     }
+     // const [position, setPosition] = useState(props.index);
 
      // let timeValue= Number;
      // // Thinking of using useEffect Hook.
@@ -29,15 +33,23 @@ function Bid(props){
      
 
      const shiftBackward=(e)=>{
-          console.log(position)
+          console.log(index)
+          // console.log(props.index, "props.index")
+          // console.log("position", position)
+
           // if (props.index.position < 0) {
-          //      props.index.position = data.length - 1;
-          //      console.log("moved back")             
-          //      console.log(props.index.position);
+          //      setPosition(()=> data.length - 1)
 
           // }
      }
-
+     const cardVariant = {
+          active: {
+               height: "52vh"
+          },
+          inactive: {
+               scaleY: 1
+          }
+     }
 
      const showModal = () => {
           props.setModalState({report: false, bid: true});
@@ -45,8 +57,12 @@ function Bid(props){
      }
      
      return (
-          <StyledBid onKeyDown={shiftBackward} className={props.id==1 ? "active" : ""}  x={props.index.position}>
-               <motion.img  src={`nfts/nft-${props.id+1}.jpg`} alt="nft" />
+          <StyledBid 
+               onKeyDown={shiftBackward} 
+               as={motion.div}  
+               animate={{transform: `translateX(${(index * 100) + index * 10 + "%"})`, filter: `brightness(${index==1 ? "100%" : "50%"})`, top: `${index==1 ? "6%" : "10%"}`,}}
+               >
+               <motion.img  src={`nfts/nft-${props.id+1}.jpg`} alt="nft" variants={cardVariant} animate={index==1 ? "active" : ""} />
                <div> <AiOutlineClockCircle style={clock}/> <span> {time.hour===0? `${time.minute}m` :  `${time.hour}hr`} left</span> </div>
                <div>
                     <h3>{props.item.nft}</h3>

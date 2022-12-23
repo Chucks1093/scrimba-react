@@ -7,34 +7,35 @@ const ModalCover = styled.div`
      top: 0%;
      left: 0%;
      background-color: #1d221d8f;
-     z-index: 1;
-     display: ${(props)=>props.show ? "block" : "none"};
+     transition: .5s opacity ease;
+     z-index: ${(props)=>props.show ? 1 : -1};
+     opacity: ${(props)=>props.show ? 1 : 0};
 `
 
 const StyledModal = styled.div`
      color: #252424;
-     height: 32rem;
+     height: 80vh;
      width: 60%;
      z-index: 2;
      background-color: #f6f6f9;
      top: 50%;
      left: 50%;
-     transform: translate(-50%, -50%);
+     /* transform: translate(-50%, -50%); */
      position: fixed;
      border-radius: .6rem;
      max-width: 29rem;
      min-width: 21rem;
      padding: 0rem;
      box-shadow:  0 2rem 3rem rgba(0,0,0,0.4);
-     display: ${(props)=>props.show ? "block" : "none"};
+     opacity: ${(props)=>props.show ? 1 : 0};
+
 
      & > img {
           border-radius: .6rem;
           width: 100%;
-          height: 28%;
+          height: 100%;
           object-fit: cover;
           object-position: center 15%;
-          transition: 1s all ease;
      }
      
      
@@ -43,7 +44,7 @@ const StyledModal = styled.div`
 const UserInfo = styled.div`
      & {
           position: absolute;
-          top: calc(28% - 3rem);
+          top: calc(39% - 3rem);
           left: 50%;
           transform: translateX(-50%);
           
@@ -134,10 +135,29 @@ const BiddingForm = styled.form`
           border: none;
           text-indent: 1rem;
           border-radius: 0 .75rem .75rem 0;
-
+          
 
      }
 
+
+     &.failed {
+          & div:nth-child(2) {
+               border: 2px solid red;
+          }
+          & input {
+               color: red;
+          }
+     }
+
+
+     &.success {
+          & div:nth-child(2) {
+               border: 2px solid #318f46;
+          }
+          & input {
+               color: #19702c;
+          }
+     }
      & button {
           margin: 1.5rem auto 0;
           width: 70%;
@@ -146,12 +166,14 @@ const BiddingForm = styled.form`
           border-radius: .6rem;
           cursor: pointer;
           font-weight: bold;
-          color: #edeffd;
+        color: #edeffd;
           background: #181a1e;
 
           &:hover {
                background: #181a1ec3;
-
+          }
+          &:active {
+               background: #181a1e; 
           }
      }
 `

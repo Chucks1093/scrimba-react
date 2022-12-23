@@ -5,8 +5,19 @@ import { createGlobalStyle } from "styled-components";
 
 const StyledApp = styled.div`
      overflow-x: hidden;
+     position: relative;
      & h2 {
           text-align: center;
+     }
+     & > img {
+          margin: 0 auto;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+
+          object-fit: contain;
+          width: 13%;
+          transform: translate(-50%, -50%);
      }
 `
 
@@ -97,6 +108,7 @@ const BidContainer = styled.div`
      padding: 0 0 0 3rem;
      display: flex;                
      height: calc(45vh + 20rem);
+
 
 `
 

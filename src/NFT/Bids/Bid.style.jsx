@@ -4,16 +4,15 @@ import styled from "styled-components";
 const StyledBid = styled.div`
      width: 21rem;
      position: absolute;
-     transform: translateX(${(props)=>(props.x * 100)+ props.x*10 + "%"}) ;
      top:10%;
      border-radius: .8rem;
      background: #202528;
      color: #edeffd; 
      padding: ${(props)=>props.x ==1 ? "1rem" : "1rem"};
-     box-shadow:  0 2rem 1rem rgba(0,0,0,0.4);
+     box-shadow:  0 1.7rem 1.7rem rgba(0,0,0,0.4);
 
      &.active {
-          background: #e75a5a;
+          /* background: #e75a5a; */
           top: 5%;
 
           & > img {

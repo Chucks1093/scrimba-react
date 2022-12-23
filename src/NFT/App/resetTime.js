@@ -5,7 +5,7 @@ function resetTime(data,index) {
           setTimeout(()=>{
                const oldTime = data[index].time;
                resolve(oldTime)
-          }, 7000)
+          }, 10000)
      })
 };
 
