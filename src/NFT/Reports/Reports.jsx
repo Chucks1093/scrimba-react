@@ -2,7 +2,7 @@ import { ReportCover, StyledReport, Stats } from "./Reports.style";
 import BidReport from "../BidReport/BidReport";
 import getLocalStorage from "./getLocalStorage";
 import { useEffect, useState } from "react";
-import { Reorder } from "framer-motion";
+import { motion } from "framer-motion";
 
 function Reports(props){
      const currentDate = {
@@ -17,7 +17,12 @@ function Reports(props){
      }, [props.isModalActive.report === false ? true : false])
      return(
           <div>
-               <StyledReport show={props.isModalActive.report}>
+               <StyledReport 
+               show={props.isModalActive.report}
+               as={motion.div}
+               animate={{transform: `scale(${props.isModalActive.report ? 1:0.2}) translate(-50%, -50%)`, opacity: props.isModalActive.report ? 1:0 }}
+               style={{transformOrigin: `${!props.isModalActive.bid ? "0% 0%" : ""}`}}
+               >
                     <div>
                          <h3>Reports</h3>
                          <p>{currentDate.year}/{currentDate.month +1}/{currentDate.day}</p>

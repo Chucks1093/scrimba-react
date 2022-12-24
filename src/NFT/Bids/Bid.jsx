@@ -17,31 +17,7 @@ function Bid(props){
      if (index < -5) {
           index = data.length - Math.abs(index);
      }
-     // const [position, setPosition] = useState(props.index);
-
-     // let timeValue= Number;
-     // // Thinking of using useEffect Hook.
-     // if (time.hour === 0  && time.minute !== 0 ) {
-     //      timeValue =`${time.minute}m`
-     // } else if (time.hour===0 && time.minute === 0) {
-     //      timeValue = `${time.seconds}s`
-     // } else {
-     //      timeValue = `${time.hour}hr`
-     // }
-     // console.log(props.index)
-
-     
-
-     const shiftBackward=(e)=>{
-          console.log(index)
-          // console.log(props.index, "props.index")
-          // console.log("position", position)
-
-          // if (props.index.position < 0) {
-          //      setPosition(()=> data.length - 1)
-
-          // }
-     }
+    
      const cardVariant = {
           active: {
                height: "52vh"
@@ -58,7 +34,6 @@ function Bid(props){
      
      return (
           <StyledBid 
-               onKeyDown={shiftBackward} 
                as={motion.div}  
                animate={{transform: `translateX(${(index * 100) + index * 10 + "%"})`, filter: `brightness(${index==1 ? "100%" : "50%"})`, top: `${index==1 ? "6%" : "10%"}`,}}
                >

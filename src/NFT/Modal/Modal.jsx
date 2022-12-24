@@ -24,17 +24,8 @@ function Modal(props) {
           const placeHolder = e.currentTarget.parentElement;
           let lastBid =  props.nftData[props.modalID].lastBid;
           let bidValue = inputBox.children[1];
-          if (bidValue.value < lastBid || props.balance < bidValue.value) {
-               bidValue.type = "text";
-               bidValue.value = "Insufficient Balance.";
-               placeHolder.classList.add("failed");
-               setTimeout(()=>{
-                    placeHolder.classList.remove("failed");
-                    bidValue.type = "number";
-                    bidValue.value = "";
-               }, 1200);
                
-          } else if (time.hour ==0 && time.minute==0 && time.seconds==0) {
+          if (time.hour ==0 && time.minute==0 && time.seconds==0) {
                bidValue.type = "text";
                bidValue.value = "Auction Has Ended.";
                placeHolder.classList.add("failed");
@@ -43,7 +34,16 @@ function Modal(props) {
                     bidValue.type = "number";
                     bidValue.value = "";
                }, 1200);
-          } else if (props.balance > bidValue.value && bidValue.value > lastBid) {
+          } else if (bidValue.value < lastBid || props.balance < bidValue.value) {
+               bidValue.type = "text";
+               bidValue.value = "Insufficient Balance.";
+               placeHolder.classList.add("failed");
+               setTimeout(()=>{
+                    placeHolder.classList.remove("failed");
+                    bidValue.type = "number";
+                    bidValue.value = "";
+               }, 1200);
+          }else if (props.balance > bidValue.value && bidValue.value > lastBid) {
                const newBalnce = props.balance -  bidValue.value;
                props.setBalance(newBalnce.toFixed(5))
                props.nftData[props.modalID].lastBid = bidValue.value;
@@ -83,6 +83,7 @@ function Modal(props) {
                     show={props.isModalActive.bid}
                     as={motion.div}
                     animate={{transform: `scale(${props.isModalActive.bid ? 1:0.2}) translate(-50%, -50%)`, opacity: props.isModalActive.bid ? 1:0 }}
+                    style={{transformOrigin: `${!props.isModalActive.bid ? "0% 0%" : ""}`}}
 
                >
                     <motion.img 

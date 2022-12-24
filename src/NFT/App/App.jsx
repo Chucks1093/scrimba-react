@@ -35,9 +35,7 @@ function App(){
                if (e.keyCode == "37"){
                     return Number(value + 1);
                }else if (e.keyCode == "39"){
-                    return Number(value - 1);
-
-
+                    return Number(value - 1)
                }else {
                     return value;
                }
@@ -60,26 +58,31 @@ function App(){
           })
      }, [nftData])
 
-     // Have to reduce nested if statement using the guard claues technique
+
      useEffect(()=>{
           nftData.map((item, i)=> {
-               if (item.time.hour===0 && item.time.minute ===0 && item.time.seconds ===1) {
-                    const storedNfts = getLocalStorage();
-                    const newStoredNfts = storedNfts.map((value)=>{
+               const storedNfts = getLocalStorage();
+               const newStoredNfts = storedNfts.map((value)=>{
+                    if (item.time.hour===0 && item.time.minute ===0 && item.time.seconds ===1) {
                          if (!value.sold){
                               if (value.id === i) {
                                    value.sold = true;
                                    value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
                               }
                          }
-                         return value;
-                    })
-                    localStorage.setItem("nft", JSON.stringify(newStoredNfts))
-                    setReportItems(newStoredNfts)
-               }
+                    }else {
+                         if (!value.sold){
+                              if (value.id === i) {
+                                   value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
+                              }
+                         }
+                    }
+                    return value;
+               })
+               localStorage.setItem("nft", JSON.stringify(newStoredNfts))
+               setReportItems(newStoredNfts)
           })
      },[nftData])
-
      
      useEffect(()=>{
           setInterval(()=>{
@@ -146,7 +149,12 @@ function App(){
                />
                <StyledBody />
                <TopInfo>
-                    <IoIosStats onClick={()=>setShowModal({report: true, bid:false})} style={styledSearch} />
+                    <IoIosStats 
+                         onClick={()=>setShowModal({report: true, bid:false})}
+                         onMouseOver={({target})=>target.style.backgroundColor = "#484d50"} 
+                         onMouseOut={({target})=>target.style.backgroundColor = "#353a3d"}
+                         style={styledSearch} 
+                    />
                     <div>
                          <p>Balance</p>
                          <Account>
