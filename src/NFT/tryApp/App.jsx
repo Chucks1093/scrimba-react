@@ -1,20 +1,26 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import getCurrentDate from "../App/reduceTime";
+import { convertToSeconds, reduceFutureTime } from "./reduceFutureTime";
 
 const Count = styled.p`
      font-size: 5rem;
 
 `
-
+const auctionTime = {hour:5, minute: 39, seconds: 0}
 function tryApp() {
-     const [countDown, setCountDown] = useState({hour:2, minute: 30, seconds: 50});
-     
+     const [countDown, setCountDown] = useState(auctionTime);
 
+     function reduceTime() {  
+          setCountDown(()=>{
+               const newTime = reduceFutureTime(auctionTime);
+               return newTime;
+          })
+     }
+     
      useEffect(()=>{
           setInterval(()=>{
-               setCountDown((value)=>{
-                    const newTime = getCurrentDate(value);
+               setCountDown(()=>{
+                    const newTime = reduceFutureTime(auctionTime);
                     return newTime;
                     
                })
@@ -22,7 +28,11 @@ function tryApp() {
      }, [])
 
      return (
-          <div><Count>{countDown.hour} : {countDown.minute} : {countDown.seconds}</Count></div>
+          <div><Count>{countDown.hour} : {countDown.minute} : {countDown.seconds}</Count>
+
+          <button>Reduce time</button>
+          </div>
+          
      )
 };
 

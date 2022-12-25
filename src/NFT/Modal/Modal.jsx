@@ -131,7 +131,7 @@ function Modal(props) {
                          </div>
                          <motion.button 
                               onClick={addToReport}
-                              whileTap={{scale: 0.99}}>Submit</motion.button>
+                              whileTap={{scale: 0.9}}>Submit</motion.button>
                     </BiddingForm>
                </StyledModal>
           </div>

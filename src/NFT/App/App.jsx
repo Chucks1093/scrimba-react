@@ -18,6 +18,7 @@ import reduceTIme from "./reduceTime";
 import resetTime from "./resetTime";
 import generateLastBid from "./generateLastBid";
 import getLocalStorage from "../Reports/getLocalStorage";
+import { reduceFutureTime } from "../tryApp/reduceFutureTime";
 
 
 function App(){
@@ -29,7 +30,7 @@ function App(){
      const [reportItems, setReportItems] = useState(getLocalStorage);
      const [position, setPosition] = useState(0);
 
-
+     // Move Cards with left and right key
      const movePosition=(e)=>{
           setPosition((value)=>{
                if (e.keyCode == "37"){
@@ -40,68 +41,74 @@ function App(){
                     return value;
                }
           })
-     }
+     };
 
 
+     //Freeze the time
+     // useEffect(()=>{
+     //      nftData.map((item, i)=> {
+     //           if (item.time.hour===0 && item.time.minute ===0 && item.time.seconds ===2) {
+     //                resetTime(data, i).then((value) => {
+     //                     setnftData((allItem)=>{
+     //                          let restoredTime = allItem[i];
+     //                          restoredTime.time = value;
+     //                          return allItem;
+     //                     })
+     //                })
+     //           }
+     //      })
+     // }, [nftData])
 
-     useEffect(()=>{
-          nftData.map((item, i)=> {
-               if (item.time.hour===0 && item.time.minute ===0 && item.time.seconds ===2) {
-                    resetTime(data, i).then((value) => {
-                         setnftData((allItem)=>{
-                              let restoredTime = allItem[i];
-                              restoredTime.time = value;
-                              return allItem;
-                         })
-                    })
-               }
-          })
-     }, [nftData])
+     // Update bidding Status and vidding state of local storage items every second.
 
-
-     useEffect(()=>{
-          nftData.map((item, i)=> {
-               const storedNfts = getLocalStorage();
-               const newStoredNfts = storedNfts.map((value)=>{
-                    if (item.time.hour===0 && item.time.minute ===0 && item.time.seconds ===1) {
-                         if (!value.sold){
-                              if (value.id === i) {
-                                   value.sold = true;
-                                   value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
-                              }
-                         }
-                    }else {
-                         if (!value.sold){
-                              if (value.id === i) {
-                                   value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
-                              }
-                         }
-                    }
-                    return value;
-               })
-               localStorage.setItem("nft", JSON.stringify(newStoredNfts))
-               setReportItems(newStoredNfts)
-          })
-     },[nftData])
+     // useEffect(()=>{
+     //      nftData.map((item, i)=> {
+     //           const storedNfts = getLocalStorage();
+     //           const newStoredNfts = storedNfts.map((value)=>{
+     //                if (item.time.hour===0 && item.time.minute ===0 && item.time.seconds ===1 && !item.time.isWaiting) {
+     //                     if (!value.sold){
+     //                          if (value.id === i) {
+     //                               value.sold = true;
+     //                               value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
+     //                          }
+     //                     }
+     //                }else {
+     //                     if (!value.sold){
+     //                          if (value.id === i) {
+     //                               value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
+     //                          }
+     //                     }
+     //                }
+     //                return value;
+     //           })
+     //           localStorage.setItem("nft", JSON.stringify(newStoredNfts))
+     //           setReportItems(newStoredNfts)
+     //      })
+     // },[nftData])
      
+     // Reduce auction time every second.
+
      useEffect(()=>{
           setInterval(()=>{
-               setnftData((value)=>{
-                    return value.map((item, i)=>{
-                         if (item.time.hour===0 && item.time.minute ===0 && item.time.seconds ===0 ) {
-                              return item;
-                    }else {
-                         const newTime = reduceTIme(item.time);
-                         return {
-                              ...item,
-                              time: {...newTime}
-                         };   
-                    }
+               setnftData(()=>{
+                    return data.map((item, i)=>{
+                    // console.log(item.time)
+                    const newTime = reduceFutureTime(item.time);
+                    // console.log(newTime)
+                    return {
+                         ...item,
+                         time: {
+                              hour: newTime.hour,
+                              minute: newTime.minute,
+                              seconds: newTime.seconds
+                         }
+                    };   
               }) 
           })
         }, 1000)  
      }, [])
 
+     // generate last bid value
      useEffect(()=>{
           setnftData((value)=> {
                return value.map((item)=>{
@@ -118,7 +125,7 @@ function App(){
                     return value.map((item)=>{
                          const prevLastBid = Number(item.lastBid);
                          const lastBid = Number(generateLastBid());
-                         const newBid = (balance * (lastBid/2.5)).toFixed(2)
+                         const newBid = (balance * (lastBid/3.5)).toFixed(2)
                          
                          return {
                               ...item,

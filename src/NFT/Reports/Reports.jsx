@@ -1,15 +1,16 @@
 import { ReportCover, StyledReport, Stats } from "./Reports.style";
 import BidReport from "../BidReport/BidReport";
 import getLocalStorage from "./getLocalStorage";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 
+const currentDate = {
+     year : new Date().getFullYear(),
+     month: new Date().getMonth(),
+     day: new Date().getDate()
+};
+
 function Reports(props){
-     const currentDate = {
-          year : new Date().getFullYear(),
-          month: new Date().getMonth(),
-          day: new Date().getDate()
-     };
 
      useEffect(()=>{
           props.setReportItems(getLocalStorage)
