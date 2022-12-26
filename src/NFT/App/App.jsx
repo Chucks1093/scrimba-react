@@ -19,6 +19,7 @@ import resetTime from "./resetTime";
 import generateLastBid from "./generateLastBid";
 import getLocalStorage from "../Reports/getLocalStorage";
 import reduceFutureTime from "./reduceFutureTime";
+import { lastBid } from "../Bids/Bid.style";
 
 
 function App(){
@@ -47,13 +48,11 @@ function App(){
      //Reset the time 
      useEffect(()=>{
           nftData.map((item, i)=> {
-               console.log("reseting")
                if (item.time.hour==0 && item.time.minute ==0 && item.time.seconds ==2 && !item.time.isWaiting) {
                     resetTime(data, i).then((value) => {
                          setnftData((allItem)=>{
                               let restoredTime = allItem[i];
                               restoredTime.time = reduceFutureTime(value);
-                              console.log(restoredTime);
                               return allItem;
                          })
                     })
@@ -66,21 +65,31 @@ function App(){
      useEffect(()=>{
           nftData.map((item, i)=> {
                const storedNfts = getLocalStorage();
+               // console.log()
                const newStoredNfts = storedNfts.map((value)=>{
-                    if (item.time.hour===0 && item.time.minute ===0 && item.time.seconds ===1 && item.time.isWaiting) {
-                         if (!value.sold){
-                              if (value.id === i) {
-                                   value.sold = true;
-                                   value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
-                              }
-                         }
-                    }else {
-                         if (!value.sold){
-                              if (value.id === i) {
-                                   value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
-                              }
-                         }
+                    const currentDate= (new Date().getTime()/1000);
+                    if (currentDate >= value.bidEndingTime) {
+                         value.sold = true;
+                         value.amount >= value.lastBid ? value.purchased = true : value.purchased = false;
+                    } else if (currentDate < value.bidEndingTime) {
+                         value.amount >= value.lastBid ? value.purchased = true : value.purchased = false;
+                         value.lastBid = i==value.id? item.lastBid : value.lastBid;
+                         console.log(value)
                     }
+                    // if (item.time.hour==0 && item.time.minute ==0 && item.time.seconds ==1 && !item.time.isWaiting) {
+                    //      if (!value.sold){
+                    //           if (value.id === i) {
+                    //                value.sold = true;
+                    //                value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
+                    //           }
+                    //      }
+                    // }else {
+                    //      if (!value.sold){
+                    //           if (value.id === i) {
+                    //                value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
+                    //           }
+                    //      }
+                    // }
                     return value;
                })
                localStorage.setItem("nft", JSON.stringify(newStoredNfts))

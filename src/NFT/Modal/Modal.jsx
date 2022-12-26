@@ -11,17 +11,18 @@ import { motion,} from "framer-motion";
 import data from "../App/data";
 import { useEffect, useState } from "react";
 import getLocalStorage from "../Reports/getLocalStorage";
+import convertToSeconds from "../App/covertToSeconds";
 
 const animationLength = 1.3;
 
 function Modal(props) {
      const { time } = props.nftData[props.modalID];
-     // let auctionState = "Auction ending in";
-     // if (time.hour==0 && time.minute==0 && time.seconds==0 && !time.isWaiting) {
-     //      auctionState = "Auction has ended.";
-     // } else if (time.isWaiting) {
-     //      auctionState = "Auction starting in."
-     // };
+     let auctionState = "Auction ending in";
+     if (time.hour==0 && time.minute==0 && time.seconds==0 && !time.isWaiting) {
+          auctionState = "Auction has ended.";
+     } else if (time.isWaiting) {
+          auctionState = "Auction starting in."
+     };
      
      
      const addToReport = (e) => {
@@ -31,7 +32,7 @@ function Modal(props) {
           let lastBid =  props.nftData[props.modalID].lastBid;
           let bidValue = inputBox.children[1];
                
-          if (time.hour ==0 && time.minute==0 && time.seconds==0) {
+          if (time.hour ==0 && time.minute==0 && time.seconds==0 && !time.isWaiting || time.isWaiting) {
                bidValue.type = "text";
                bidValue.value = "Auction Has Ended.";
                placeHolder.classList.add("failed");
@@ -50,11 +51,12 @@ function Modal(props) {
                     bidValue.value = "";
                }, 1200);
           }else if (props.balance > bidValue.value && bidValue.value > lastBid) {
+               const bidEndingTime = Math.floor((new Date().getTime()/1000) + convertToSeconds(time.hour, time.minute, time.seconds));
                const newBalnce = props.balance -  bidValue.value;
                props.setBalance(newBalnce.toFixed(5))
                props.nftData[props.modalID].lastBid = bidValue.value;
                let nftItems = getLocalStorage();
-               nftItems.push({id : props.modalID, amount: bidValue.value, sold: false, purchased: true})
+               nftItems.push({id : props.modalID, amount: bidValue.value, sold: false, purchased: true, bidEndingTime:bidEndingTime, lastBid:lastBid})
                localStorage.setItem("nft", JSON.stringify(nftItems));
                bidValue.type = "text";
                bidValue.value = "Bid Was Placed";
@@ -116,7 +118,7 @@ function Modal(props) {
                               <p>{props.nftData[props.modalID].lastBid} ETH</p>
                          </div>
                          <div>
-                              <p>Auction ending in</p>
+                              <p>{auctionState}</p>
                               <p>{time.hour} : {time.minute} : {time.seconds}</p>
                          </div>
                     </BiddingInfo>

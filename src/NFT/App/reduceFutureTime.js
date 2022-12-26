@@ -1,3 +1,4 @@
+import convertToSeconds from "./covertToSeconds";
 const format = (value) =>value < 10 ? `0${value}` : value;
 
 function reduceFutureTime(item){
@@ -31,12 +32,5 @@ function getSecondMinuteAndHour(value) {
 
 
 
-function convertToSeconds(hour, minute, seconds) {
-     const oneMinute =  60;
-     const oneHour =  60 *60;
-     const hourTime = hour * oneHour;
-     const minuteTime = minute * oneMinute;       
-     return hourTime + minuteTime + seconds;
-};
 
 export default reduceFutureTime;

@@ -5,7 +5,7 @@ export default [
           time: {
                hour: 0,
                minute: 0,
-               seconds: 7
+               seconds: 20
           },
           
      },
