@@ -14,18 +14,18 @@ const ModalCover = styled.div`
 
 const StyledModal = styled.div`
      color: #252424;
-     height: 80vh;
+     height: 90%;
      width: 60%;
      z-index: 4;
      background-color: #f6f6f9;
      top: 50%;
      left: 50%;
-     /* transform: translate(-50%, -50%); */
      position: fixed;
      border-radius: .6rem;
      max-width: 29rem;
      min-width: 21rem;
      padding: 0rem;
+     max-height: 37rem;
      box-shadow:  0 2rem 3rem rgba(0,0,0,0.4);
      opacity: ${(props)=>props.show ? 1 : 0};
 

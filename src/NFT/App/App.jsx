@@ -37,6 +37,7 @@ function App(){
           const btn = e.currentTarget.id;
           setPosition((value)=>{
                if (e.keyCode == "37" || btn === "leftBtn"){
+                    console.log(value)
                     return Number(value + 1);
                }else if (e.keyCode == "39" || btn === "rightBtn"){
                     return Number(value - 1)
@@ -235,8 +236,8 @@ function App(){
                          ))}
                </BidContainer>
                <ButtonContainer>
-                    <div><span id="leftBtn" onClick={movePosition}><BsFillArrowLeftSquareFill /></span></div>
-                    <div><span onClick={movePosition} id="rightBtn" ><BsFillArrowRightSquareFill /></span></div>
+                    <div ><span style={{display: position > 0 ?"none" : "grid"}} id="leftBtn" onClick={movePosition}><BsFillArrowLeftSquareFill /></span></div>
+                    <div ><span style={{display: position < -42 ?"none" : "grid"}} onClick={movePosition} id="rightBtn" ><BsFillArrowRightSquareFill /></span></div>
                     
                </ButtonContainer>
                <motion.img src="/loader.svg" alt="" initial={{opaciy: 1}} transition={{delay: 2.5}} animate={{opacity: 0}} />
