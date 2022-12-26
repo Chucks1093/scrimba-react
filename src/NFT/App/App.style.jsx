@@ -6,6 +6,11 @@ import { createGlobalStyle } from "styled-components";
 const StyledApp = styled.div`
      overflow-x: hidden;
      position: relative;
+     display: block;
+     @media screen and (max-width : 800px) {
+          display: none;
+
+     }
      & h2 {
           text-align: center;
      }
@@ -165,6 +170,23 @@ const styledSearch = {
      boxShadow: " 0 2rem 3rem rgba(0,0,0,0.4)"
 };
 
+const Phone = styled.h3`
+     display: none;
+    @media screen and (max-width : 800px) {
+     display: block;
+     color: white;
+     text-align: center;
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     transform: translate(-50%, -50%);
+     
+     
+
+}
+
+`
+
 const StyledBody = createGlobalStyle`
      body{
           background-color: #181a1e;
@@ -187,5 +209,6 @@ export {
      styledSearch,
      Comment,
      Account,
-     ButtonContainer
+     ButtonContainer,
+     Phone
 };

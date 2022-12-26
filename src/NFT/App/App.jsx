@@ -6,7 +6,8 @@ import {
      styledSearch,
      Comment,
      Account,
-     ButtonContainer
+     ButtonContainer,
+     Phone
 } from "./App.style";
 import Modal from "../Modal/Modal";
 import { IoIosStats } from "react-icons/io";
@@ -37,7 +38,6 @@ function App(){
           const btn = e.currentTarget.id;
           setPosition((value)=>{
                if (e.keyCode == "37" || btn === "leftBtn"){
-                    console.log(value)
                     return Number(value + 1);
                }else if (e.keyCode == "39" || btn === "rightBtn"){
                     return Number(value - 1)
@@ -190,60 +190,63 @@ function App(){
      }, [])
 
      return (
-          <StyledApp>
-               <Modal 
-                    isModalActive={showModal}
-                    setModalState={setShowModal}
-                    modalID={modalID}
-                    nftData={nftData}
-                    setBalance={setBalance}
-                    balance={balance}
+          <div>
+               <Phone>Sorry can only be viewed on Laptops</Phone>
+               <StyledApp>
+                    <Modal 
+                         isModalActive={showModal}
+                         setModalState={setShowModal}
+                         modalID={modalID}
+                         nftData={nftData}
+                         setBalance={setBalance}
+                         balance={balance}
 
-               />
-               <Reports
-                    isModalActive={showModal}
-                    setModalState={setShowModal} 
-                    reportItems={reportItems}
-                    setReportItems={setReportItems}
-               />
-               <StyledBody />
-               <TopInfo>
-                    <IoIosStats 
-                         onClick={()=>setShowModal({report: true, bid:false})}
-                         onMouseOver={({target})=>target.style.backgroundColor = "#484d50"} 
-                         onMouseOut={({target})=>target.style.backgroundColor = "#353a3d"}
-                         style={styledSearch} 
                     />
-                    <div>
-                         <p>Balance</p>
-                         <Account>
-                              <img src="/eth.svg" alt="" />
-                              <p>{balance}</p>
-                         </Account>
-                    </div>
-                    <motion.img src="/user.jpg" alt="user"  />
-               </TopInfo>
-               <BidContainer as={motion.div} onKeyDown={movePosition} animate={{x: 0, opacity: 1}} initial={{x:500, opacity: 0}} transition={{delay: 3}}>
-                    {nftData.map((item,i)=>(
-                         <Bid
-                              key={i} 
-                              id={i}
-                              index={i + position}
-                              setModalState={setShowModal}  
-                              item={item}
-                              setModalID={setModalID}  
+                    <Reports
+                         isModalActive={showModal}
+                         setModalState={setShowModal} 
+                         reportItems={reportItems}
+                         setReportItems={setReportItems}
+                    />
+                    <StyledBody />
+                    <TopInfo>
+                         <IoIosStats 
+                              onClick={()=>setShowModal({report: true, bid:false})}
+                              onMouseOver={({target})=>target.style.backgroundColor = "#484d50"} 
+                              onMouseOut={({target})=>target.style.backgroundColor = "#353a3d"}
+                              style={styledSearch} 
                          />
-                         ))}
-               </BidContainer>
-               <ButtonContainer>
-                    <div ><span style={{display: position > 0 ?"none" : "grid"}} id="leftBtn" onClick={movePosition}><BsFillArrowLeftSquareFill /></span></div>
-                    <div ><span style={{display: position < -42 ?"none" : "grid"}} onClick={movePosition} id="rightBtn" ><BsFillArrowRightSquareFill /></span></div>
-                    
-               </ButtonContainer>
-               <motion.img src="/loader.svg" alt="" initial={{opaciy: 1}} transition={{delay: 2.5}} animate={{opacity: 0}} />
-               <Comment>Made with <span>❤</span> by Anioke Sebastian.
-               </Comment>
-          </StyledApp>
+                         <div>
+                              <p>Balance</p>
+                              <Account>
+                                   <img src="/eth.svg" alt="" />
+                                   <p>{balance}</p>
+                              </Account>
+                         </div>
+                         <motion.img src="/user.jpg" alt="user"  />
+                    </TopInfo>
+                    <BidContainer as={motion.div} onKeyDown={movePosition} animate={{x: 0, opacity: 1}} initial={{x:500, opacity: 0}} transition={{delay: 3}}>
+                         {nftData.map((item,i)=>(
+                              <Bid
+                                   key={i} 
+                                   id={i}
+                                   index={i + position}
+                                   setModalState={setShowModal}  
+                                   item={item}
+                                   setModalID={setModalID}  
+                              />
+                              ))}
+                    </BidContainer>
+                    <ButtonContainer>
+                         <div ><span style={{display: position > 0 ?"none" : "grid"}} id="leftBtn" onClick={movePosition}><BsFillArrowLeftSquareFill /></span></div>
+                         <div ><span style={{display: position < -39 ?"none" : "grid"}} onClick={movePosition} id="rightBtn" ><BsFillArrowRightSquareFill /></span></div>
+                         
+                    </ButtonContainer>
+                    <motion.img src="/loader.svg" alt="" initial={{opaciy: 1}} transition={{delay: 2.5}} animate={{opacity: 0}} />
+                    <Comment>Made with <span>❤</span> by Anioke Sebastian.
+                    </Comment>
+               </StyledApp>
+          </div>
      )
 };
 

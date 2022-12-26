@@ -5,8 +5,6 @@ import {SiBetfair} from "react-icons/si";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { motion } from "framer-motion";
 import data from "../App/data";
-import getCurrentDate from "../App/reduceTime";
-import { useState } from "react";
 
 
 
@@ -53,7 +51,7 @@ function Bid(props){
                               <p>{props.item.lastBid} ETH</p>
                          </div>
                     </div>
-                    <button onClick={showModal}><span>Place a bid </span><SiBetfair style={bidBtnSymbol} /></button>
+                    <button onClick={index==1 ?showModal : null}><span>Place a bid </span><SiBetfair style={bidBtnSymbol} /></button>
                </BiddingState>
           </StyledBid>
      )
