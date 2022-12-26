@@ -4,7 +4,7 @@ export default [
           creator: "Gbemisola Akintade",
           time: {
                hour: 0,
-               minute: 0,
+               minute: 1,
                seconds: 20
           },
           

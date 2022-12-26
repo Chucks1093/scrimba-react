@@ -8,7 +8,7 @@ const ModalCover = styled.div`
      left: 0%;
      background-color: #1d221d8f;
      transition: .5s opacity ease;
-     z-index: ${(props)=>props.show ? 1 : -1};
+     z-index: ${(props)=>props.show ? 3 : -1};
      opacity: ${(props)=>props.show ? 1 : 0};
 `
 
@@ -16,7 +16,7 @@ const StyledModal = styled.div`
      color: #252424;
      height: 80vh;
      width: 60%;
-     z-index: 2;
+     z-index: 4;
      background-color: #f6f6f9;
      top: 50%;
      left: 50%;

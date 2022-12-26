@@ -56,7 +56,7 @@ function Modal(props) {
                props.setBalance(newBalnce.toFixed(5))
                props.nftData[props.modalID].lastBid = bidValue.value;
                let nftItems = getLocalStorage();
-               nftItems.push({id : props.modalID, amount: bidValue.value, sold: false, purchased: true, bidEndingTime:bidEndingTime, lastBid:lastBid})
+               nftItems.push({id : props.modalID, amount: bidValue.value, sold: false, purchased: true, bidEndingTime:bidEndingTime})
                localStorage.setItem("nft", JSON.stringify(nftItems));
                bidValue.type = "text";
                bidValue.value = "Bid Was Placed";

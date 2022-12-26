@@ -13,7 +13,7 @@ import { useState } from "react";
 function Bid(props){
      const { time } = props.item;
      let { index } = props;
-
+     
      if (index < -5) {
           index = data.length - Math.abs(index);
      }

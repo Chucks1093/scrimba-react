@@ -31,9 +31,8 @@ const TopInfo = styled.div`
           position: relative;
           padding: 0 1rem;
           margin-top: 1.5rem;
-
-
      }
+
      & > div {
           background: #202528;
           border-radius: .5rem;
@@ -42,8 +41,6 @@ const TopInfo = styled.div`
           border: 1px solid #edeffd7f;
 
      }
-
-
 
      & > div > p {
           font-size: .6rem;
@@ -64,6 +61,56 @@ const TopInfo = styled.div`
   
 `
 
+const ButtonContainer = styled.div`
+     position: absolute;
+     height: 6rem;
+     width: 100%;
+     top: 50%;
+     left: 0%;
+     transform: translateY(-50%);
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+
+     &  div {
+          height: 90vh;
+          width: 13vh;
+          display: grid;
+          place-items: center;
+          opacity: 0;
+          transition: .5s opacity ease;
+
+          &:hover {
+               opacity: 1;
+          }
+     }
+
+     &  span {
+          color: #888383;
+          object-fit: contain;
+          width: fit-content;
+          height: fit-content;
+          padding: 0;
+          border-radius: 1rem;
+          font-size: 4rem;
+          background-color: #3d3b3b;
+          display: grid;
+          place-items: center;
+          cursor: pointer;
+          box-shadow:  0 2rem 3rem rgba(0,0,0,0.4);
+
+          &:hover {
+               color: #cecbcb;
+          }
+
+          &:active {
+               color: #9e9797;
+               box-shadow:  0 1rem 3rem rgba(0,0,0,0.4);
+
+          }
+     }
+`;
+
 const Account = styled.div`
      display: flex;
      justify-content: center;
@@ -78,7 +125,7 @@ const Account = styled.div`
 
 
 
-     }
+     };
 
      & p {
           font-weight: bold; 
@@ -100,16 +147,11 @@ const Comment = styled.p`
 `
 const BidContainer = styled.div`
      padding: 6rem 0 0 0;
-     /* border: 1px solid red; */
-     /* overflow-x: scroll; */
-     /* overflow-y: hidden; */
      background: transparent;
      position: relative;
      padding: 0 0 0 3rem;
      display: flex;                
      height: calc(45vh + 20rem);
-
-
 `
 
 const styledSearch = {
@@ -117,6 +159,7 @@ const styledSearch = {
      height: "3rem",
      borderRadius: ".8rem",
      padding: ".6rem",
+     zIndex: "1",
      color: "#edeffd",
      backgroundColor: "#353a3d",
      boxShadow: " 0 2rem 3rem rgba(0,0,0,0.4)"
@@ -143,5 +186,6 @@ export {
      BidContainer, 
      styledSearch,
      Comment,
-     Account
+     Account,
+     ButtonContainer
 };

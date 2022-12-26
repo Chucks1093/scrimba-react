@@ -5,7 +5,8 @@ import {
      BidContainer ,
      styledSearch,
      Comment,
-     Account
+     Account,
+     ButtonContainer
 } from "./App.style";
 import Modal from "../Modal/Modal";
 import { IoIosStats } from "react-icons/io";
@@ -14,17 +15,17 @@ import Reports from "../Reports/Reports";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import data from "./data";
-import reduceTIme from "./reduceTime";
 import resetTime from "./resetTime";
 import generateLastBid from "./generateLastBid";
 import getLocalStorage from "../Reports/getLocalStorage";
 import reduceFutureTime from "./reduceFutureTime";
-import { lastBid } from "../Bids/Bid.style";
+import { BsFillArrowRightSquareFill, BsFillArrowLeftSquareFill } from "react-icons/bs";
+
 
 
 function App(){
      const [nftData, setnftData] = useState(data);
-     const [balance, setBalance] = useState(5.17495);
+     const [balance, setBalance] = useState(9.17495);
      const [showModal, setShowModal] = useState
      ({report:false, bid: false});
      const [modalID, setModalID] = useState(0);
@@ -33,10 +34,11 @@ function App(){
 
      // Move Cards with left and right key
      const movePosition=(e)=>{
+          const btn = e.currentTarget.id;
           setPosition((value)=>{
-               if (e.keyCode == "37"){
+               if (e.keyCode == "37" || btn === "leftBtn"){
                     return Number(value + 1);
-               }else if (e.keyCode == "39"){
+               }else if (e.keyCode == "39" || btn === "rightBtn"){
                     return Number(value - 1)
                }else {
                     return value;
@@ -44,60 +46,7 @@ function App(){
           })
      };
 
-
-     //Reset the time 
-     useEffect(()=>{
-          nftData.map((item, i)=> {
-               if (item.time.hour==0 && item.time.minute ==0 && item.time.seconds ==2 && !item.time.isWaiting) {
-                    resetTime(data, i).then((value) => {
-                         setnftData((allItem)=>{
-                              let restoredTime = allItem[i];
-                              restoredTime.time = reduceFutureTime(value);
-                              return allItem;
-                         })
-                    })
-               }
-          })
-     }, [nftData])
-
-     // Update bidding Status and bidding stake of local storage items every second.
-
-     useEffect(()=>{
-          nftData.map((item, i)=> {
-               const storedNfts = getLocalStorage();
-               // console.log()
-               const newStoredNfts = storedNfts.map((value)=>{
-                    const currentDate= (new Date().getTime()/1000);
-                    if (currentDate >= value.bidEndingTime) {
-                         value.sold = true;
-                         value.amount >= value.lastBid ? value.purchased = true : value.purchased = false;
-                    } else if (currentDate < value.bidEndingTime) {
-                         value.amount >= value.lastBid ? value.purchased = true : value.purchased = false;
-                         value.lastBid = i==value.id? item.lastBid : value.lastBid;
-                         console.log(value)
-                    }
-                    // if (item.time.hour==0 && item.time.minute ==0 && item.time.seconds ==1 && !item.time.isWaiting) {
-                    //      if (!value.sold){
-                    //           if (value.id === i) {
-                    //                value.sold = true;
-                    //                value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
-                    //           }
-                    //      }
-                    // }else {
-                    //      if (!value.sold){
-                    //           if (value.id === i) {
-                    //                value.amount >= item.lastBid ? value.purchased = true : value.purchased = false;
-                    //           }
-                    //      }
-                    // }
-                    return value;
-               })
-               localStorage.setItem("nft", JSON.stringify(newStoredNfts))
-               setReportItems(newStoredNfts)
-          })
-     },[nftData])
-     
-     // Reduce auction time every second.
+      // Reduce auction time every second.
      useEffect(()=>{
           setInterval(()=>{
                setnftData((value)=>{
@@ -116,45 +65,127 @@ function App(){
                                    }
                               };   
                          }
-              }) 
+                    }) 
+               })
+          }, 1000)  
+     }, [])
+
+     // Update bidding Status and bidding stake of local storage items every second.
+
+     useEffect(()=>{
+          nftData.map((item, i)=> {
+               const storedNfts = getLocalStorage();
+               const newStoredNfts = storedNfts.map((value)=>{
+                    const currentDate= Math.floor((new Date().getTime()/1000));
+                    if (currentDate >= value.bidEndingTime) {
+                         value.sold = true;
+                         let lastBid = generateLastBid(data[value.id].time, {hour: 0, minute: 0, seconds: 0})
+                         lastBid = Number(lastBid);
+                         value.amount = Number(value.amount);
+                         value.amount >= lastBid ? value.purchased = true : value.purchased = false;
+                    } else if (currentDate < value.bidEndingTime) {
+                         if ( i == value.id) {
+                              const remainingTime = item.time;
+                              let lastBid = generateLastBid(data[value.id].time, remainingTime);
+                              value.amount = Number(value.amount);
+                              lastBid = Number(lastBid)
+                              if (value.amount <= lastBid) {
+                                   value.purchased = false;
+                              } else  if (value.amount >= lastBid) {
+                                   value.purchased = true;
+                              }
+                              
+                              
+                         }
+                    }
+                    return value;
+               })
+               localStorage.setItem("nft", JSON.stringify(newStoredNfts))
+               setReportItems(newStoredNfts)
           })
-        }, 1000)  
+     },[nftData])
+     
+    
+
+     //Reset the time 
+     useEffect(()=>{
+          nftData.map((item, i)=> {
+               if (item.time.hour==0 && item.time.minute ==0 && item.time.seconds ==2 && !item.time.isWaiting) {
+                    resetTime(data, i).then((value) => {
+                         setnftData((allItem)=>{
+                              let restoredTime = allItem[i];
+                              restoredTime.time = reduceFutureTime(value);
+                              return allItem;
+                         })
+                    })
+               }
+          })
+     }, [nftData])
+
+     useEffect(()=>{
+          setnftData((value)=>{
+               return value.map((item, i)=>{
+                    if (item.time.hour==0 && item.time.minute==0 && item.time.seconds==0 && !item.time.isWaiting) {
+                         return item;
+                    } else {
+                         const newTime = reduceFutureTime(data[i].time);
+                         return {
+                              ...item,
+                              time: {
+                                   hour: newTime.hour,
+                                   minute: newTime.minute,
+                                   seconds: newTime.seconds,
+                                   isWaiting: newTime.isWaiting
+                              }
+                         };   
+                    }
+               }) 
+          })
+          setnftData((value)=> {
+               return value.map((item, index)=>{
+                    if (item.time.isWaiting) {
+                         return {
+                              ...item,
+                              lastBid: 0
+                         }
+                    } else if (!item.time.isWaiting) {
+                         const maxTime = data[index].time;
+                         const remainingTime = item.time;
+                         const lastBid = generateLastBid(maxTime, remainingTime);
+                         return {
+                              ...item,
+                              lastBid: lastBid
+
+                         }
+                    }
+               })
+          })
+
      }, [])
 
      // generate last bid value
      useEffect(()=>{
-          setnftData((value)=> {
-               return value.map((item)=>{
-                    const lastBid = generateLastBid();
-                    return {
-                         ...item,
-                         lastBid: lastBid
-
-                    }
-               })
-          })
           setInterval(()=>{
                setnftData((value)=> {
-                    return value.map((item)=>{
-                         const prevLastBid = Number(item.lastBid);
-                         const lastBid = Number(generateLastBid());
-                         const newBid = (balance * (lastBid/3.5)).toFixed(2);
+                    return value.map((item, index)=>{
                          if (item.time.isWaiting) {
                               return {
                                    ...item,
-                                   lastBid: prevLastBid
+                                   lastBid: 0.00
                               }
-                         } else {
+                         } else if (!item.time.isWaiting) {
+                              const maxTime = data[index].time;
+                              const remainingTime = item.time;
+                              const lastBid = generateLastBid(maxTime, remainingTime);
                               return {
                                    ...item,
-                                   lastBid: newBid <= prevLastBid ? prevLastBid : newBid
-          
+                                   lastBid: item.lastBid >= lastBid ? item.lastBid : lastBid
+
                               }
                          }
-                         
                     })
                })
-          }, 7000)
+          }, 5000)
      }, [])
 
      return (
@@ -202,8 +233,13 @@ function App(){
                               setModalID={setModalID}  
                          />
                          ))}
-               </BidContainer>     
-                         <motion.img src="/loader.svg" alt="" initial={{opaciy: 1}} transition={{delay: 2.5}} animate={{opacity: 0}} />
+               </BidContainer>
+               <ButtonContainer>
+                    <div><span id="leftBtn" onClick={movePosition}><BsFillArrowLeftSquareFill /></span></div>
+                    <div><span onClick={movePosition} id="rightBtn" ><BsFillArrowRightSquareFill /></span></div>
+                    
+               </ButtonContainer>
+               <motion.img src="/loader.svg" alt="" initial={{opaciy: 1}} transition={{delay: 2.5}} animate={{opacity: 0}} />
                <Comment>Made with <span>❤</span> by Anioke Sebastian.
                </Comment>
           </StyledApp>
