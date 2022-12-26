@@ -12,11 +12,17 @@ import data from "../App/data";
 import { useEffect, useState } from "react";
 import getLocalStorage from "../Reports/getLocalStorage";
 
+const animationLength = 1.3;
 
 function Modal(props) {
      const { time } = props.nftData[props.modalID];
-     const animationLength = 1.3;
-     const format = (value) =>value < 10 ? `0${value}` : value;
+     // let auctionState = "Auction ending in";
+     // if (time.hour==0 && time.minute==0 && time.seconds==0 && !time.isWaiting) {
+     //      auctionState = "Auction has ended.";
+     // } else if (time.isWaiting) {
+     //      auctionState = "Auction starting in."
+     // };
+     
      
      const addToReport = (e) => {
           e.preventDefault();
@@ -111,7 +117,7 @@ function Modal(props) {
                          </div>
                          <div>
                               <p>Auction ending in</p>
-                              <p>{format(time.hour)} : {format(time.minute)} : {format(time.seconds)}</p>
+                              <p>{time.hour} : {time.minute} : {time.seconds}</p>
                          </div>
                     </BiddingInfo>
                     <BiddingForm

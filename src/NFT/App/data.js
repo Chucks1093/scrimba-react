@@ -14,7 +14,7 @@ export default [
           creator: "Aminu Abiodun",
           time: {
                hour: 0,
-               minute: 0,
+               minute: 6,
                seconds: 20
           },
           
