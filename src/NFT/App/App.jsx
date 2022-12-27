@@ -78,6 +78,7 @@ function App(){
                const storedNfts = getLocalStorage();
                const newStoredNfts = storedNfts.map((value)=>{
                     const currentDate= Math.floor((new Date().getTime()/1000));
+                    
                     if (Number(currentDate) >= Number(value.bidEndingTime)) {
                          value.sold = true;
                          let lastBid = generateLastBid(data[value.id].time, {hour: 0, minute: 0, seconds: 0})
