@@ -7,7 +7,6 @@ import {
      Comment,
      Account,
      ButtonContainer,
-     Phone
 } from "./App.style";
 import Modal from "../Modal/Modal";
 import { IoIosStats } from "react-icons/io";
@@ -21,6 +20,7 @@ import generateLastBid from "./generateLastBid";
 import getLocalStorage from "../Reports/getLocalStorage";
 import reduceFutureTime from "./reduceFutureTime";
 import { BsFillArrowRightSquareFill, BsFillArrowLeftSquareFill } from "react-icons/bs";
+import Phone from "../Phone/Phone";
 
 
 
@@ -95,8 +95,6 @@ function App(){
                               } else  if (value.amount >= lastBid) {
                                    value.purchased = true;
                               }
-                              
-                              
                          }
                     }
                     return value;
@@ -191,7 +189,7 @@ function App(){
 
      return (
           <div>
-               <Phone>Sorry can only be viewed on Laptops</Phone>
+               <Phone />
                <StyledApp>
                     <Modal 
                          isModalActive={showModal}

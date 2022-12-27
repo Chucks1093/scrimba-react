@@ -170,22 +170,7 @@ const styledSearch = {
      boxShadow: " 0 2rem 3rem rgba(0,0,0,0.4)"
 };
 
-const Phone = styled.h3`
-     display: none;
-    @media screen and (max-width : 800px) {
-     display: block;
-     color: white;
-     text-align: center;
-     position: absolute;
-     left: 50%;
-     top: 50%;
-     transform: translate(-50%, -50%);
-     
-     
 
-}
-
-`
 
 const StyledBody = createGlobalStyle`
      body{
@@ -209,6 +194,5 @@ export {
      styledSearch,
      Comment,
      Account,
-     ButtonContainer,
-     Phone
+     ButtonContainer
 };
