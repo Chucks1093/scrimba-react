@@ -9,7 +9,7 @@ function Phone() {
                     <h3>Sorry this project can't be viewed on mobile.</h3>
                     <button>
                          <p> See More Info</p>
-                         <span><FaExternalLinkAlt /></span>
+                         <a href=""><FaExternalLinkAlt  /></a>
                     </button>
                </div>
           </StyledPhone>

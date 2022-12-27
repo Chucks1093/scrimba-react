@@ -79,6 +79,11 @@ const BiddingInfo = styled.div`
      justify-content: space-between;
      margin-top: 4.3rem;
      padding: 0 1.6rem;
+     &.isWaiting {
+          & div:nth-child(2) p:nth-child(1) {
+               color: #389979;
+          }
+     }
 
      & div:nth-child(1) p:nth-child(1) {
           color: gray;
@@ -170,10 +175,10 @@ const BiddingForm = styled.form`
           background: #181a1e;
 
           &:hover {
-               background: #181a1ec3;
+               background: #0d0e11c3;
           }
           &:active {
-               background: #181a1e; 
+               background: #14161a; 
           }
      }
 `

@@ -12,6 +12,18 @@ function Bid(props){
      const { time } = props.item;
      let { index } = props;
 
+     let timeValue = "";
+     if (time.hour == 0 && !time.isWaiting)  {
+          timeValue = `${time.minute}m left`;
+     } else if (time.hour==0 && time.minute==0 && !time.isWaiting) {
+          timeValue = `${time.seconds}s left`;
+     } else if (time.hour >0 && !time.isWaiting){
+          timeValue = `${time.hour[1]}hr left`;
+     } else {
+          timeValue = "Ended";
+     }
+
+
      if (index < -5) {
           index = data.length - Math.abs(index);
      }
@@ -36,7 +48,7 @@ function Bid(props){
                animate={{transform: `translateX(${(index * 100) + index * 10 + "%"})`, filter: `brightness(${index==1 ? "100%" : "50%"})`, top: `${index==1 ? "6%" : "10%"}`,}}
                >
                <motion.img  src={`nfts/nft-${props.id+1}.jpg`} alt="nft" variants={cardVariant} animate={index==1 ? "active" : ""} />
-               <div> <AiOutlineClockCircle style={clock}/> <span> {time.hour===0? `${time.minute}m` :  `${time.hour}hr`} left</span> </div>
+               <div> <AiOutlineClockCircle style={clock}/> <span> {timeValue}</span> </div>
                <div>
                     <h3>{props.item.nft}</h3>
                     <img src={`creators/creator-${props.id+1}.jpg`} alt="user" />

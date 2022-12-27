@@ -19,9 +19,9 @@ function Modal(props) {
      const { time } = props.nftData[props.modalID];
      let auctionState = "Auction ending in";
      if (time.hour==0 && time.minute==0 && time.seconds==0 && !time.isWaiting) {
-          auctionState = "Auction has ended.";
+          auctionState = "Auction has ended";
      } else if (time.isWaiting) {
-          auctionState = "Auction starting in."
+          auctionState = "Auction starting in"
      };
      
      
@@ -109,6 +109,7 @@ function Modal(props) {
                          <p>Creator</p>
                     </UserInfo>
                     <BiddingInfo
+                         className={`${time.isWaiting ? "isWaiting": ""}`}
                          as={motion.div}
                          animate={{opacity: props.isModalActive.bid ? [0,0,0,1]:0}}
                          transition={{duration: animationLength}}
@@ -139,7 +140,7 @@ function Modal(props) {
                          </div>
                          <motion.button 
                               onClick={addToReport}
-                              whileTap={{scale: 0.9}}>Submit</motion.button>
+                              whileTap={{scale: 0.98}}>Submit</motion.button>
                     </BiddingForm>
                </StyledModal>
           </div>

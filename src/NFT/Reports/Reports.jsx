@@ -11,6 +11,7 @@ const currentDate = {
 };
 
 function Reports(props){
+     console.log(props.reportItems.length)
 
      useEffect(()=>{
           props.setReportItems(getLocalStorage)

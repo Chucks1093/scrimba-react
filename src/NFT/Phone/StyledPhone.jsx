@@ -34,9 +34,12 @@ const StyledPhone= styled.div`
                color: #dfd3d3;
           }
 
-          & span{
+          & a{
                display: block;
+               color: #292727;
                margin-left: .4rem;
+               text-decoration: none;
+               text-outline
           }
 
           & button {
