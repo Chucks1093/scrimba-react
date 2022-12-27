@@ -113,6 +113,10 @@ const BiddingState = styled.div`
           box-shadow:  0 .7rem 1rem rgba(0,0,0,0.4);
           border: 1px solid white;
           cursor: pointer;
+
+          &:active {
+               background: #a39d9d;
+          }
      }
      
      

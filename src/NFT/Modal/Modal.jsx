@@ -41,7 +41,7 @@ function Modal(props) {
                     bidValue.type = "number";
                     bidValue.value = "";
                }, 1200);
-          } else if (bidValue.value < lastBid || props.balance < bidValue.value) {
+          } else if (Number(bidValue.value) <= Number(lastBid) || Number(props.balance) < Number(bidValue.value)) {
                bidValue.type = "text";
                bidValue.value = "Insufficient Balance.";
                placeHolder.classList.add("failed");
@@ -50,8 +50,9 @@ function Modal(props) {
                     bidValue.type = "number";
                     bidValue.value = "";
                }, 1200);
-          }else if (props.balance > bidValue.value && bidValue.value > lastBid) {
+          }else if (Number(props.balance) > Number(bidValue.value) && Number(bidValue.value) > Number(lastBid)) {
                const bidEndingTime = Math.floor((new Date().getTime()/1000) + convertToSeconds(time.hour, time.minute, time.seconds));
+               
                const newBalnce = props.balance -  bidValue.value;
                props.setBalance(newBalnce.toFixed(5))
                props.nftData[props.modalID].lastBid = bidValue.value;

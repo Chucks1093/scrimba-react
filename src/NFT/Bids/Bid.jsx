@@ -11,13 +11,12 @@ import data from "../App/data";
 function Bid(props){
      const { time } = props.item;
      let { index } = props;
-
      let timeValue = "";
-     if (time.hour == 0 && !time.isWaiting)  {
+     if (Number(time.hour) == 0 && !time.isWaiting)  {
           timeValue = `${time.minute}m left`;
-     } else if (time.hour==0 && time.minute==0 && !time.isWaiting) {
+     } else if (Number(time.hour)==0 && Number(time.minute)==0 && !time.isWaiting) {
           timeValue = `${time.seconds}s left`;
-     } else if (time.hour >0 && !time.isWaiting){
+     } else if (Number(time.hour) >0 && !time.isWaiting){
           timeValue = `${time.hour[1]}hr left`;
      } else {
           timeValue = "Ended";

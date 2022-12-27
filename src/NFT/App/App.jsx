@@ -47,7 +47,7 @@ function App(){
           })
      };
 
-      // Reduce auction time every second.
+     // Reduce auction time every second.
      useEffect(()=>{
           setInterval(()=>{
                setnftData((value)=>{
@@ -78,14 +78,14 @@ function App(){
                const storedNfts = getLocalStorage();
                const newStoredNfts = storedNfts.map((value)=>{
                     const currentDate= Math.floor((new Date().getTime()/1000));
-                    if (currentDate >= value.bidEndingTime) {
+                    if (Number(currentDate) >= Number(value.bidEndingTime)) {
                          value.sold = true;
                          let lastBid = generateLastBid(data[value.id].time, {hour: 0, minute: 0, seconds: 0})
                          lastBid = Number(lastBid);
                          value.amount = Number(value.amount);
                          value.amount >= lastBid ? value.purchased = true : value.purchased = false;
-                    } else if (currentDate < value.bidEndingTime) {
-                         if ( i == value.id) {
+                    } else if (Number(currentDate) < Number(value.bidEndingTime)) {
+                         if ( Number(i) == Number(value.id)) {
                               const remainingTime = item.time;
                               let lastBid = generateLastBid(data[value.id].time, remainingTime);
                               value.amount = Number(value.amount);
@@ -121,6 +121,7 @@ function App(){
           })
      }, [nftData])
 
+     //Restore the time and update the lastbid
      useEffect(()=>{
           setnftData((value)=>{
                return value.map((item, i)=>{
