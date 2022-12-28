@@ -39,7 +39,7 @@ function Bid(props){
      const showModal = () => {
           props.setModalState({report: false, bid: true});
           props.setModalID(props.id)
-     }
+     };
      
      return (
           <StyledBid 

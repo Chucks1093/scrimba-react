@@ -51,18 +51,19 @@ const StyledBid = styled.div`
 
      & > div:nth-child(3) {
           display: flex;
-          justify-content: space-between;
+          justify-content: center;
           align-items: center;
           margin: .5rem 0 1rem 0;
 
           & img {
-              width: 2rem;
-              height: 2rem;
+              width: 1.3rem;
+              height: 1.3rem;
               object-fit: cover;
               border-radius: 50%;
           }
-
+          
           & h3{
+               margin-right: .9rem;
                font-size: 1.3rem;
 
           }
