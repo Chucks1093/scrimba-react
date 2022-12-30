@@ -34,18 +34,21 @@ const StyledPhone= styled.div`
                color: #dfd3d3;
           }
 
-          & a{
+          & span{
                display: block;
-               color: #292727;
+               color: #856565;
                margin-left: .4rem;
                text-decoration: none;
-               text-outline
+               text-outline;
           }
 
-          & button {
+          & a {
                display: flex;
                justify-content: center;
                align-items: center;
+               text-decoration: none;
+               color: black;
+               font-size: .8rem;
                margin: 1.7rem auto 0;
                width: 9rem;
                height: 2.8rem;

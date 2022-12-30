@@ -42,7 +42,7 @@ function Bid(props){
      };
      
      return (
-          <StyledBid 
+     <StyledBid 
                as={motion.div}  
                animate={{transform: `translateX(${(index * 100) + index * 10 + "%"})`, filter: `brightness(${index==1 ? "100%" : "50%"})`, top: `${index==1 ? "6%" : "10%"}`,}}
                >
