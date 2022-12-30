@@ -4,7 +4,6 @@ import {
      TopInfo, 
      BidContainer ,
      styledSearch,
-     Comment,
      Account,
      ButtonContainer,
 } from "./App.style";
@@ -21,6 +20,7 @@ import getLocalStorage from "../Reports/getLocalStorage";
 import reduceFutureTime from "./reduceFutureTime";
 import { BsFillArrowRightSquareFill, BsFillArrowLeftSquareFill } from "react-icons/bs";
 import Phone from "../Phone/Phone";
+import Footer from "../Footer/Footer";
 
 
 
@@ -243,8 +243,7 @@ function App(){
                          
                     </ButtonContainer>
                     <motion.img src="/loader.svg" alt="" initial={{opaciy: 1}} transition={{delay: 2.5}} animate={{opacity: 0}} />
-                    <Comment>Made with <span>❤</span> by Anioke Sebastian.
-                    </Comment>
+                    <Footer />
                </StyledApp>
           </div>
      )

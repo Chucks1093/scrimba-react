@@ -7,7 +7,8 @@ const StyledApp = styled.div`
      overflow-x: hidden;
      position: relative;
      display: block;
-     @media screen and (max-width : 800px) {
+     height: 100vh;
+     @media screen and (max-width : 700px) {
           display: none;
 
      }
@@ -138,25 +139,14 @@ const Account = styled.div`
      }
 
 `
-const Comment = styled.p`
-     text-align: center;
-     margin: 3rem 0 0 0;
-     color: #edeffd;
-     font-size: .75rem;
-     position: absolute;
-     bottom: 2%;
-     width: 100%;
-     & span {
-          color: #ff4e4e;
-     }
-`
+
 const BidContainer = styled.div`
      padding: 6rem 0 0 0;
      background: transparent;
      position: relative;
      padding: 0 0 0 3rem;
      display: flex;                
-     height: calc(45vh + 20rem);
+     height:  84%;
 `
 
 const styledSearch = {
@@ -192,7 +182,6 @@ export {
      TopInfo, 
      BidContainer, 
      styledSearch,
-     Comment,
      Account,
      ButtonContainer
 };
